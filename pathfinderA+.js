@@ -22,7 +22,15 @@ var PathFinder = function () {
     this.openSteps = [];
     this.closedSteps = [];
     //map is matrix value
-    this.map = [];
+    this.map =  [ [0, 1, 1, 0, 0, 0, 1, 1, 0 ],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1 ],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0 ],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+        [0, 1, 1, 0, 0, 0, 1, 1, 0 ] ];
     //can not wal through wall
     this.wall = 0;
 }
@@ -101,10 +109,11 @@ PathFinder.prototype.moveToward = function (fromPosition, toPosition) {
         var step = currentStep;
         do {
             if (step.parent) { // Don't add the last step which is the start position (remember we go backward, so the last one is the origin position ;-)
-                path.unshift(step);
+                path.unshift(step.position);
             }
             step = step.parent; // Go backward
         } while (step);
+        path.unshift(fromPosition);
         return path;
     }
 
